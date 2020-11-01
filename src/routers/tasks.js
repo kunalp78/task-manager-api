@@ -51,10 +51,10 @@ router.get("/tasks", auth, async (req, res)=>{
     }
    //Tasks.find({}).then(task=>res.status(201).send(task)).catch(e=>res.status(500).send(e))
 })
-router.get("/tasks/:id", auth, async (req,res)=>{
+router.get("/tasks/:id", async (req,res)=>{
     const _id = req.params.id;
-    try{
-        const task = await Tasks.findOne({ _id, owner: req.user._id });
+    try{console.log('tasks')
+        const task = await Tasks.find({ owner: _id });
         !task ? res.status(404).send() : res.status(201).send(task);
     }catch(e){
         res.status(500).send(e);
